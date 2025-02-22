@@ -14,8 +14,49 @@
   }
 }
 
+@layer components {
+
+  h1 {
+    @apply font-semibold;
+    @apply text-xl;
+  }
+
+  h2 {
+    @apply font-semibold;
+    @apply text-lg;
+  }
+
+  h3 {
+    @apply font-semibold;
+    @apply text-base;
+  }
+
+  h4 {
+    @apply font-semibold;
+  }
+
+  .button-primary {
+    @apply bg-blue-500;
+    @apply text-white;
+    @apply px-6;
+    @apply py-2;
+    @apply rounded-lg;
+
+    &:hover {
+      @apply bg-blue-600;
+    }
+  }
+
+  .link-primary {
+    @apply text-blue-500;
+
+    &:hover {
+      @apply text-blue-600;
+    }
+  }
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }
