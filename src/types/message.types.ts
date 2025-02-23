@@ -1,6 +1,6 @@
 export type MessageType = {
     username: string;
     name: string;
-    messages: string;
+    message: string;
     repliesCount: number;
 };
