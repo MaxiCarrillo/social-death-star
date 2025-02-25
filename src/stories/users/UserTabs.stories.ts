@@ -1,4 +1,4 @@
-import { UserTabs } from "@/components/UserTabs/UserTabs";
+import { UserTabs } from "@/components/users/UserTabs";
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

@@ -1,11 +1,18 @@
-export type UserType = {
+type BaseUser = {
     id: string;
     username: string;
     name: string;
-    bio: string;
     photoUrl: string;
-    createdAt: string;
+}
+
+export type TrendingUserType = BaseUser & {
+    count: number;
+}
+
+export type UserType = BaseUser & {
+    bio: string;
     followersCount: number;
     followingCount: number;
     messageCount: number;
+    createdAt: string;
 }
