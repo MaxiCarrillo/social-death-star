@@ -1,3 +1,5 @@
+"use client";
+
 import { TrendingUserType, UserType } from '@/types/user.types';
 import Image from 'next/image'
 import Link from 'next/link';
@@ -28,6 +30,9 @@ export const UserCard = ({ user, children, layout }: UserCardProps) => {
                     className='object-cover'
                     fill
                     sizes='64px'
+                    onError={(e) => {
+                        e.currentTarget.src = '/anakin_profile.webp'
+                    }}
                 />
             </figure>
             <section>

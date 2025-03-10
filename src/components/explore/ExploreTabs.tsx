@@ -1,11 +1,13 @@
 "use client";
 import { TrendingHashtagType } from "@/types/hash.types";
+import { PageType } from "@/types/pagination.types";
 import { TrendingUserType } from "@/types/user.types";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MessageHashtag } from "../messages/MessageHashtag";
-import { USER_CARD_LAYOUT, UserCard } from "../users/UserCard";
+import { UserList } from "../users/UserList";
+import { MessageHashtagList } from "../messages/MessageHashtagList";
 
 
 enum TabView {
@@ -14,8 +16,8 @@ enum TabView {
 }
 
 interface ExploreTabsProps {
-    hashtags: TrendingHashtagType[],
-    users: TrendingUserType[],
+    hashtags: PageType<TrendingHashtagType>,
+    users: PageType<TrendingUserType>,
     initialTab?: string
 }
 
@@ -45,26 +47,14 @@ export const ExploreTabs = ({ hashtags, users, initialTab }: ExploreTabsProps) =
             </div >
             {
                 tab === TabView.HASHTAGS ?
-                    <ul className="flex flex-col gap-4">
-                        {
-                            hashtags.map((hashtag, index) => (
-                                <li key={index}>
-                                    <MessageHashtag hashtag={hashtag} />
-                                </li>
-                            ))
-                        }
-                    </ul>
+                    <MessageHashtagList
+                        initialHashtags={hashtags}
+                    />
                     :
                     (
-                        <div className="space-y-4">
-                            {users.map((user, index) => (
-                                <UserCard
-                                    key={index}
-                                    user={user}
-                                    layout={USER_CARD_LAYOUT.VERTICAL}
-                                />
-                            ))}
-                        </div>
+                        <UserList
+                            initialUsers={users}
+                        />
                     )
             }
         </>

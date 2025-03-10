@@ -8,11 +8,19 @@ const nextConfig: NextConfig = {
       hostname: "lumiere-a.akamaihd.net",
       port: '',
       pathname: '/**'
-    },{
+    }, {
       protocol: "https",
       hostname: "i.pinimg.com",
       port: '',
       pathname: '/**'
+    }]
+  },
+
+  async redirects() {
+    return [{
+      source: "/messages",
+      destination: "/",
+      permanent: true
     }]
   }
 };
