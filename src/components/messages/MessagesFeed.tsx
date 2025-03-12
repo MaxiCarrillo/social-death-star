@@ -45,7 +45,7 @@ export const MessagesFeed = ({ initialMessages }: MessagesFeedProps) => {
             }
             // below props only if you need pull down functionality
             refreshFunction={refresh}
-            pullDownToRefresh
+            pullDownToRefresh={false}
             pullDownToRefreshThreshold={50}
             pullDownToRefreshContent={
                 <h3 style={{ textAlign: 'center' }}>&#8595; Arrastrar hacia abajo para refrescar</h3>
