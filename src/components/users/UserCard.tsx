@@ -35,7 +35,7 @@ export const UserCard = ({ user, children, layout }: UserCardProps) => {
                     }}
                 />
             </figure>
-            <section>
+            <section className='w-full'>
                 <div className={sectionClasses[layout]}>
                     <h3>{user.name}</h3>
                     <p className="text-white/60 ">
