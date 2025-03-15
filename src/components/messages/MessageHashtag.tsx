@@ -10,7 +10,7 @@ interface MessageHashtagProps {
 export const MessageHashtag = ({ hashtag }: MessageHashtagProps) => {
     return (
         <>
-            <Link href={`/mensajes?query=${hashtag.hash}&type=hash`}><h3>{hashtag.hash}</h3></Link>
+            <Link href={`/?query=${hashtag.hash.replace("#", "")}&type=hash`}><h3>{hashtag.hash}</h3></Link>
             <PostsCounter count={hashtag.count} />
         </>
     )

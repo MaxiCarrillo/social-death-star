@@ -3,7 +3,7 @@
 import messageApi from "@/services/messages/messages.service";
 import { MessageType } from "@/types/message.types";
 import { PageType } from "@/types/pagination.types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Message } from "./Mesagges";
 
@@ -16,6 +16,12 @@ export const MessagesFeed = ({ initialMessages }: MessagesFeedProps) => {
     const [messagesResponse, setMessagesResponse] = useState<PageType<MessageType>>(initialMessages);
     const [messages, setMessages] = useState<MessageType[]>(initialMessages.content);
     const [hasMore, setHasMore] = useState<boolean>(!initialMessages.pagination.last);
+
+    useEffect(() => {
+        setMessagesResponse(initialMessages);
+        setMessages(initialMessages.content);
+        setHasMore(!initialMessages.pagination.last);
+    }, [initialMessages]);
 
     const fetchData = async () => {
         const page = messagesResponse.pagination.page + 1;
