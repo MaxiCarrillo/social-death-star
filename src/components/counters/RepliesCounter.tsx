@@ -5,7 +5,7 @@ type RepliesCounterProps = {
 
 export const RepliesCounter = ({ count, onClick }: RepliesCounterProps) => {
 
-    if (count === 0) return <p className="link-primary cursor-pointer" onClick={onClick}>
+    if (count === 0 || !count) return <p className="link-primary cursor-pointer" onClick={onClick}>
         Se el primero en responder
     </p>
 
