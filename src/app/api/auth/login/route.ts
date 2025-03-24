@@ -21,7 +21,7 @@ const TEN_MINUTE = 60 * 10;
 export async function POST(request: Request) {
     const { username, password } = await schema.validate(await request.json());
     try {
-        const loginResponse = await authAPI.login(username, password);
+        const loginResponse = await authAPI.loginInternal(username, password);
         const sessionId = uuidv4();
 
         const now = new Date();

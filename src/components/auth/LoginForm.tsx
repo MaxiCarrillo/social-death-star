@@ -5,6 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { SubmitButton } from "../form/SubmitButton";
 import { InputText } from "../form/InputText";
+import authAPI from "@/services/auth/auth.service";
+import { AccessDeniedError } from "@/services/common/http.errors";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type FormData = {
     username: string;
@@ -18,15 +22,28 @@ const schema = yup.object({
 
 export const LoginForm = () => {
 
+    const router = useRouter();
+    const [serverError, setServerError] = useState<string | null>(null);
+
     const methods = useForm<FormData>({
         resolver: yupResolver(schema)
     });
 
     const { handleSubmit } = methods;
 
-    const onSubmit = (data: FormData) => {
-        console
-            .log(data);
+    const onSubmit = async (data: FormData) => {
+        setServerError(null);
+        try {
+            const loginResponse = await authAPI.login(data.username, data.password);
+            console.log(JSON.stringify(loginResponse));
+            router.push("/");
+        } catch (error) {
+            if (error instanceof AccessDeniedError) {
+                setServerError("Usuario o contraseña incorrectos");
+            } else {
+                setServerError("Error en el servidor");
+            }
+        }
     }
 
     return (
@@ -47,6 +64,11 @@ export const LoginForm = () => {
                     type="password"
                 />
                 <SubmitButton label="Iniciar Sesión" />
+                {
+                    serverError &&
+                    <div className="text-red-500 mt-2" >{serverError}</div>
+                }
+
             </form>
         </FormProvider>
     )
