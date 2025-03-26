@@ -1,10 +1,14 @@
 "use client";
 
+import RegisterScheme from "@/schemes/register.scheme";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import * as yup from "yup";
 import { InputText } from "../form/InputText";
 import { SubmitButton } from "../form/SubmitButton";
+import { ConflictError } from "@/services/common/http.errors";
+import authAPI from "@/services/auth/auth.api";
 
 type FormData = {
     username: string;
@@ -13,24 +17,35 @@ type FormData = {
     photoUrl: string;
 }
 
-const schema = yup.object({
-    username: yup.string().required("El usuario es obligatorio"),
-    password: yup.string().required("La contraseña es obligatoria"),
-    name: yup.string().required("El nombre es obligatorio"),
-    photoUrl: yup.string().url("La foto de perfil debe ser una URL válida").required("La foto de perfil es obligatoria")
-}).required();
-
 export const RegisterForm = () => {
 
+    const router = useRouter();
+    const [serverError, setServerError] = useState<string | null>(null);
+
     const methods = useForm<FormData>({
-        resolver: yupResolver(schema)
+        resolver: yupResolver(RegisterScheme)
     });
 
     const { handleSubmit } = methods;
 
-    const onSubmit = (data: FormData) => {
-        console
-            .log(data);
+    const onSubmit = async (data: FormData) => {
+        setServerError(null);
+        try {
+            const loginResponse = await authAPI.registerInternal(
+                data.username,
+                data.password,
+                data.name,
+                data.photoUrl
+            );
+            console.log(JSON.stringify(loginResponse));
+            router.push("/");
+        } catch (error) {
+            if (error instanceof ConflictError) {
+                setServerError(`El usuario ${data.username} ya existe`);
+            } else {
+                setServerError("Error en el servidor");
+            }
+        }
     }
 
     return (
@@ -65,6 +80,10 @@ export const RegisterForm = () => {
                     type="text"
                 />
                 <SubmitButton label="Crear cuenta" />
+                {
+                    serverError &&
+                    <div className="text-red-500 mt-2" >{serverError}</div>
+                }
             </form>
         </FormProvider>
     )

@@ -1,24 +1,19 @@
 "use client";
 
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup"
-import * as yup from "yup"
-import { SubmitButton } from "../form/SubmitButton";
-import { InputText } from "../form/InputText";
+import LoginScheme from "@/schemes/login.scheme";
 import authAPI from "@/services/auth/auth.api";
 import { AccessDeniedError } from "@/services/common/http.errors";
-import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { InputText } from "../form/InputText";
+import { SubmitButton } from "../form/SubmitButton";
 
 type FormData = {
     username: string;
     password: string;
 }
-
-const schema = yup.object({
-    username: yup.string().required("El usuario es obligatorio"),
-    password: yup.string().required("La contraseña es obligatoria")
-}).required();
 
 export const LoginForm = () => {
 
@@ -26,7 +21,7 @@ export const LoginForm = () => {
     const [serverError, setServerError] = useState<string | null>(null);
 
     const methods = useForm<FormData>({
-        resolver: yupResolver(schema)
+        resolver: yupResolver(LoginScheme)
     });
 
     const { handleSubmit } = methods;
@@ -68,7 +63,6 @@ export const LoginForm = () => {
                     serverError &&
                     <div className="text-red-500 mt-2" >{serverError}</div>
                 }
-
             </form>
         </FormProvider>
     )

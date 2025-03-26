@@ -1,15 +1,10 @@
+import LoginScheme from "@/schemes/login.scheme";
 import authService from "@/services/auth/auth.service";
 import { AccessDeniedError } from "@/services/common/http.errors";
-import * as yup from "yup";
-
-const schema = yup.object({
-    username: yup.string().required("El usuario es obligatorio"),
-    password: yup.string().required("La contraseña es obligatoria")
-}).required();
 
 export async function POST(request: Request) {
 
-    const { username, password } = await schema.validate(await request.json());
+    const { username, password } = await LoginScheme.validate(await request.json());
 
     try {
         const loginResponse = await authService.authentica(username, password);

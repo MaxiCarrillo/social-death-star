@@ -1,4 +1,4 @@
-import { AuthResponseType } from "@/types/auth.types";
+import { AuthResponseType, LoginResponseType } from "@/types/auth.types";
 import { createClient, RedisClientType } from "redis";
 import { AccessDeniedError } from "../common/http.errors";
 import { v4 as uuidv4 } from "uuid";
@@ -21,6 +21,15 @@ class AuthService {
 
     async authentica(username: string, password: string): Promise<AuthResponseType> {
         const loginResponse = await authAPI.loginInternal(username, password);
+        return this.buildAuthResponse(loginResponse);
+    }
+
+    async register(username: string, password: string, name: string, photoUrl: string): Promise<AuthResponseType> {
+        const registerResponse = await authAPI.registerInternal(username, password, name, photoUrl);
+        return this.buildAuthResponse(registerResponse);
+    }
+
+    buildAuthResponse(loginResponse: LoginResponseType): AuthResponseType {
         const sessionId = uuidv4();
 
         const now = new Date();
@@ -35,7 +44,6 @@ class AuthService {
             user: loginResponse.user,
             expireAt: expireAt
         }
-
     }
 
     async getAccessToken(sessionId?: string): Promise<string> {
