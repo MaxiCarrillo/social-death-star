@@ -11,8 +11,17 @@ export class HttpBaseAPI {
         this.publicEndpointSuffix = publicEndpoint;
     }
 
-    async httpGet<T>(endpointSuffix: string, params?: URLSearchParams): Promise<T> {
-        const res = await fetch(`${this.privateEndpoint}${endpointSuffix}${params ? `?${params}` : ''}`)
+    async httpGet<T>(endpointSuffix: string, params?: URLSearchParams, accessToken?: string): Promise<T> {
+        const res = await fetch(`${this.privateEndpoint}${endpointSuffix}${params ? `?${params}` : ''}`,
+            {
+                cache: 'no-cache',
+                headers: !accessToken ? { 'Content-Type': 'application/json' } :
+                    {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+            }
+        )
         if (!res.ok) {
             throw new Error(`Failed to fetch ${endpointSuffix}`)
         }
@@ -23,13 +32,14 @@ export class HttpBaseAPI {
         return this.httpGet(`${this.publicEndpointSuffix}${endpointSuffix}`, params)
     }
 
-    async httpPost<T>(endpointSuffix: string, body: object, skipAuthorization?: boolean): Promise<T> {
+    async httpPost<T>(endpointSuffix: string, body: object, accessToken?: string): Promise<T> {
         const res = await fetch(`${this.privateEndpoint}${endpointSuffix}`, {
             method: 'POST',
-            headers: skipAuthorization ? { 'Content-Type': 'application/json' } : {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIERldGFpbHMiLCJpc3MiOiJzb2NpYWwtYXBpIiwiaWF0IjoxNjkxNTE2NDMwLCJ1c2VybmFtZSI6InlvZGEifQ.pg4lkBK2wlEorNrThDFqkC7l5uHrpZTJAYp4De4629c`
-            },
+            headers: !accessToken ? { 'Content-Type': 'application/json' } :
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                },
             body: JSON.stringify(body)
         })
         if (!res.ok) {
@@ -42,7 +52,7 @@ export class HttpBaseAPI {
     }
 
     async httpPostPublic<T>(endpointSuffix: string, body: object): Promise<T> {
-        return this.httpPost(`${this.publicEndpointSuffix}${endpointSuffix}`, body, true)
+        return this.httpPost(`${this.publicEndpointSuffix}${endpointSuffix}`, body)
     }
 }
 
