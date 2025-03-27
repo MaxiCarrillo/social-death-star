@@ -8,6 +8,8 @@ class ExploreAPI {
         httpInternalApi.httpGetPublic(`/explore/trending`, new URLSearchParams({ page: String(page), size: String(size) }));
     getFollowRecommendations = async (page: number, size: number): Promise<PageType<TrendingUserType>> =>
         httpInternalApi.httpGetPublic(`/explore/follow-recommendations`, new URLSearchParams({ page: String(page), size: String(size) }));
+    getMyFollowRecommendations = async (page: number, size: number, accessToken: string): Promise<PageType<TrendingUserType>> =>
+        httpInternalApi.httpGet(`/explore/follow-recommendations`, new URLSearchParams({ page: String(page), size: String(size) }), accessToken);
 }
 
 const exploreAPI = new ExploreAPI();

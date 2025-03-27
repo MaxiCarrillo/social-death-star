@@ -6,14 +6,16 @@ import { MessagesList } from "@/components/messages/MessagesList";
 import useMessages, { MessageProvider } from "@/contexts/message.context";
 import { MessageType } from "@/types/message.types";
 import { PageType } from "@/types/pagination.types";
+import { UserType } from "@/types/user.types";
 
 interface MessagePageProps {
     repliesPage: PageType<MessageType>;
     message: MessageType;
     parentId?: string;
+    currentUser?: UserType;
 }
 
-const MessagePageContainer = ({ repliesPage, message, parentId }: MessagePageProps) => {
+const MessagePageContainer = ({ repliesPage, message, parentId, currentUser }: MessagePageProps) => {
     return (
         <MessageProvider
             initialPage={repliesPage}
@@ -22,7 +24,7 @@ const MessagePageContainer = ({ repliesPage, message, parentId }: MessagePagePro
             <MessageContainer />
             <section>
                 <h2 className="mt-4 mb-4">Respuestas</h2>
-                <MessagePostForm parentId={parentId} />
+                <MessagePostForm parentId={parentId} currentUser={currentUser} />
                 <MessagesList />
             </section>
         </MessageProvider>

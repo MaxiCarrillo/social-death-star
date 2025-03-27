@@ -39,6 +39,7 @@ export const RegisterForm = () => {
             );
             console.log(JSON.stringify(loginResponse));
             router.push("/");
+            router.refresh();
         } catch (error) {
             if (error instanceof ConflictError) {
                 setServerError(`El usuario ${data.username} ya existe`);

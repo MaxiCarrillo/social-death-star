@@ -29,11 +29,15 @@ class AuthService {
         return this.buildAuthResponse(registerResponse);
     }
 
+    async logout(sessionId: string): Promise<void> {
+        await this.client.del(sessionId);
+    }
+
     buildAuthResponse(loginResponse: LoginResponseType): AuthResponseType {
         const sessionId = uuidv4();
 
         const now = new Date();
-        const expireAt = new Date(now.getTime() + TEN_MINUTE * 1000).toUTCString();
+        const expireAt = new Date(now.getTime() + TEN_MINUTE * 1000).getTime();
 
         this.client.set(sessionId, loginResponse.accessToken, {
             EX: TEN_MINUTE

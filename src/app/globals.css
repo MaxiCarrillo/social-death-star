@@ -47,6 +47,18 @@
     }
   }
 
+  .button-secondary {
+    @apply bg-gray-500;
+    @apply text-white;
+    @apply px-6;
+    @apply py-2;
+    @apply rounded-lg;
+
+    &:hover {
+      @apply bg-gray-600;
+    }
+  }
+
   .link-primary {
     @apply text-blue-500;
 

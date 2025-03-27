@@ -1,6 +1,7 @@
 import { MessageType } from "@/types/message.types";
 import { PageType } from "@/types/pagination.types";
 import httpInternalApi from "../common/http.internal.service";
+import httpExternalApi from "../common/http.external.service";
 
 class MessageAPI {
     getMessage = async (id: string): Promise<MessageType> =>
@@ -10,7 +11,7 @@ class MessageAPI {
     getMessagesReplies = async (id: string, page: number, size: number): Promise<PageType<MessageType>> =>
         httpInternalApi.httpGetPublic(`/messages/${id}/replies`, new URLSearchParams({ page: String(page), size: String(size) }));
     postMessage = async (message: string, parentId?: string): Promise<MessageType> =>
-        httpInternalApi.httpPost(`/messages`, { message, parentId });
+        httpExternalApi.httpPost(`/proxy/messages`, { message, parentId });
     getMessagesByHash = async (hashtag: string, page: number, size: number): Promise<PageType<MessageType>> =>
         httpInternalApi.httpGetPublic(`/messages/hash/${hashtag}`, new URLSearchParams({ page: String(page), size: String(size) }));
 }

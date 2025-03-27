@@ -19,6 +19,11 @@ export async function middleware(request: NextRequest) {
     if (!accessToken) throw new AccessDeniedError("SessionID is not valid");
     return getAuthenticationHeaders(request, accessToken);
   } catch (error) {
+    if (error instanceof AccessDeniedError) {
+      if (!request.url.endsWith("/profile")) {
+        return NextResponse.next();
+      }
+    }
     return NextResponse.redirect(new URL('/login', request.url));
   }
 }
@@ -40,5 +45,5 @@ const getAuthenticationHeaders = (request: NextRequest, accessToken: string) => 
 }
 
 export const config = {
-  matcher: '/profile',
+  matcher: ['/', '/messages/:path*', '/profile', '/api/proxy/:path*']
 }

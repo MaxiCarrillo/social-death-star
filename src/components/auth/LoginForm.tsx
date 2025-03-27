@@ -32,6 +32,7 @@ export const LoginForm = () => {
             const loginResponse = await authAPI.login(data.username, data.password);
             console.log(JSON.stringify(loginResponse));
             router.push("/");
+            router.refresh();
         } catch (error) {
             if (error instanceof AccessDeniedError) {
                 setServerError("Usuario o contraseña incorrectos");

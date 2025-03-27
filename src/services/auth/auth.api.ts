@@ -6,7 +6,7 @@ class AuthAPI {
 
 
     getRedisValue = async (key: string): Promise<RedisResponseType> =>
-        httpExternalApi.httpGet(`/redis`, new URLSearchParams({ key }));
+        httpExternalApi.httpGet(`/redis`, new URLSearchParams({ key }), process.env.REDIS_API_TOKEN);
 
     login = async (username: string, password: string): Promise<LoginResponseType> =>
         httpExternalApi.httpPost(`/auth/login`, { username, password });
@@ -19,6 +19,9 @@ class AuthAPI {
 
     registerInternal = async (username: string, password: string, name: string, photoUrl: string): Promise<LoginResponseType> =>
         httpInternalApi.httpPostPublic(`/auth/register`, { username, password, name, photoUrl });
+
+    logout = async (): Promise<void> =>
+        httpExternalApi.httpPost(`/auth/logout`, { });
 }
 
 const authAPI = new AuthAPI();
