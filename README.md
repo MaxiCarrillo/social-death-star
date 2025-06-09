@@ -20,6 +20,8 @@ Social Death Start: A Twitter clone for minimalist, chaotic microblogging
 - **Force Connections**: Follow users, track followers, and join faction-specific trends.  
 - **Auth**: Create an account and log in to engage.
 
+![home-shots](https://github.com/user-attachments/assets/4c033e92-93f9-49cc-88e1-a7ecadaeee29)
+
 <p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
 ## Prerequisites
