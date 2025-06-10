@@ -35,13 +35,13 @@ const UsersLayout: FC<PropsWithChildren> = async ({ children }) => {
 
     return (<>
         <section className="grid grid-cols-12 gap-4 px-4">
-            <header className="col-span-2">
+            <header className="col-span-3 px-10 mt-4">
                 <Menu links={links} />
             </header>
-            <main className="col-span-6">
+            <main className="col-span-5">
                 {children}
             </main>
-            <aside className="col-span-4 space-y-4">
+            <aside className="col-span-4 space-y-4 px-6 mt-4">
                 <ExploreTrending
                     hashtags={hashtags.content}
                 />

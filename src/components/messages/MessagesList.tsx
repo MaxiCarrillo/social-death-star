@@ -6,9 +6,11 @@ export const MessagesList = () => {
     const { messages } = useMessages();
 
     return (
-        <div className="space-y-4">
+        <div className="">
             {messages?.map((message, index) => (
-                <Message key={index} message={message} />
+                <div key={index} className='p-4 border-b border-white/15'>
+                    <Message message={message} />
+                </div>
             ))}
         </div>
     )

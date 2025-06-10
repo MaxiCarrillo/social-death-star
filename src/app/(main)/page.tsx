@@ -16,8 +16,8 @@ const IndexPage = async ({ searchParams }: { searchParams?: { [key: string]: str
 
     return (
         <>
-            <main className="flex flex-col bg-gray-800 p-8">
-                <section className="flex flex-col gap-4 mb-8">
+            <main className="flex flex-col border-l border-r border-b border-white/15">
+                <section className="flex flex-col">
                     <IndexPageContainer
                         initialQuery={query}
                         messagesResponse={messagesResponse}

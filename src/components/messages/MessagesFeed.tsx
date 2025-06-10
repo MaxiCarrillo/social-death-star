@@ -9,7 +9,7 @@ export const MessagesFeed = () => {
 
     return (
         <InfiniteScroll
-            dataLength={messages.length} 
+            dataLength={messages.length}
             next={fetchNextPage}
             hasMore={!messagePage.pagination.last}
             loader={<h4>Cargando más mensajes...</h4>}
@@ -28,11 +28,11 @@ export const MessagesFeed = () => {
                 <h3 style={{ textAlign: 'center' }}>&#8593; Suelta para refrescar</h3>
             }
         >
-            <div className="space-y-4">
-                {messages.map((message, index) => (
-                    <Message key={index} message={message} />
-                ))}
-            </div>
+            {messages.map((message, index) => (
+                <div key={index} className="border-b border-white/15 p-4">
+                    <Message message={message} />
+                </div>
+            ))}
         </InfiniteScroll>
     )
 }

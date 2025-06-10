@@ -26,25 +26,27 @@ export const UserTabs = ({ messages, replies, followers, following }: UserTabsPr
 
     return (
         <>
-            <div className="flex justify-evenly gap-4 mb-4">
-                <div className={`cursor-pointer ${tab === TabView.MESSAGES ? 'border-b-4 border-blue-500' : ''} `} onClick={() => setTab(TabView.MESSAGES)}>
+            <div className="flex justify-evenly gap-4 border-b border-white/15 ">
+                <div className={`cursor-pointer py-2 ${tab === TabView.MESSAGES ? 'border-b-4 border-blue-500' : ''} `} onClick={() => setTab(TabView.MESSAGES)}>
                     Mensajes
                 </div>
-                <div className={`cursor-pointer ${tab === TabView.REPLIES ? 'border-b-4 border-blue-500' : ''} `} onClick={() => setTab(TabView.REPLIES)}>
+                <div className={`cursor-pointer py-2 ${tab === TabView.REPLIES ? 'border-b-4 border-blue-500' : ''} `} onClick={() => setTab(TabView.REPLIES)}>
                     Respuestas
                 </div>
-                <div className={`cursor-pointer ${tab === TabView.FOLLOWERS ? 'border-b-4 border-blue-500' : ''} `} onClick={() => setTab(TabView.FOLLOWERS)}>
+                <div className={`cursor-pointer py-2 ${tab === TabView.FOLLOWERS ? 'border-b-4 border-blue-500' : ''} `} onClick={() => setTab(TabView.FOLLOWERS)}>
                     Seguidores
                 </div>
-                <div className={`cursor-pointer ${tab === TabView.FOLLOWING ? 'border-b-4 border-blue-500' : ''} `} onClick={() => setTab(TabView.FOLLOWING)}>
+                <div className={`cursor-pointer py-2 ${tab === TabView.FOLLOWING ? 'border-b-4 border-blue-500' : ''} `} onClick={() => setTab(TabView.FOLLOWING)}>
                     Seguidos
                 </div>
             </div >
             {
                 tab === TabView.MESSAGES &&
-                <div className="space-y-4">
+                <div>
                     {messages.map((message, index) => (
-                        <Message key={index} message={message} />
+                        <div key={index} className="border-b border-white/15 px-4 py-2">
+                            <Message message={message} />
+                        </div>
                     ))}
                 </div>
             }
@@ -52,17 +54,21 @@ export const UserTabs = ({ messages, replies, followers, following }: UserTabsPr
                 tab === TabView.REPLIES &&
                 <div className="space-y-4">
                     {replies.map((reply, index) => (
-                        <Message key={index} message={reply} />
+                        <div key={index} className="border-b border-white/15 px-4 py-2">
+                            <Message key={index} message={reply} />
+                        </div>
                     ))}
                 </div>
             }
             {
                 tab === TabView.FOLLOWERS &&
-                <ul className="flex flex-col gap-4 mt-4">
+                <ul className="flex flex-col">
                     {
                         followers.map((user, index) => (
                             <li key={index}>
-                                <UserCard user={user} layout={USER_CARD_LAYOUT.VERTICAL} />
+                                <div key={index} className="border-b border-white/15 px-4 py-2">
+                                    <UserCard user={user} layout={USER_CARD_LAYOUT.VERTICAL} />
+                                </div>
                             </li>
                         ))
                     }
@@ -70,11 +76,13 @@ export const UserTabs = ({ messages, replies, followers, following }: UserTabsPr
             }
             {
                 tab === TabView.FOLLOWING &&
-                <ul className="flex flex-col gap-4 mt-4">
+                <ul className="flex flex-col">
                     {
                         following.map((user, index) => (
                             <li key={index}>
-                                <UserCard user={user} layout={USER_CARD_LAYOUT.VERTICAL} />
+                                <div key={index} className="border-b border-white/15 px-4 py-2">
+                                    <UserCard user={user} layout={USER_CARD_LAYOUT.VERTICAL} />
+                                </div>
                             </li>
                         ))
                     }

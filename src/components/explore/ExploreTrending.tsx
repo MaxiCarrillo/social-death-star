@@ -13,7 +13,7 @@ export const ExploreTrending = ({ hashtags }: ExploreTrendingProps) => {
     if (!hashtags || !hashtags.length) return null;
 
     return (
-        <div className="bg-gray-900 rounded-lg px-8 py-4">
+        <div className="border border-white/15 rounded-lg px-8 py-4">
             <h2>Trending Topics</h2>
             <ul className="flex flex-col gap-4 mt-4">
                 {

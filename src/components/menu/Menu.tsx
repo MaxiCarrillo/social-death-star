@@ -7,19 +7,19 @@ interface MenuProps {
 
 export const Menu = ({ links }: MenuProps) => {
     return (
-        <nav className="flex flex-col gap-4">
-            <ul className="space-y-2 w-[400px]">
+        <nav className="flex flex-col gap-1">
+            <ul>
                 {
                     links.map((link, index) => (
-                        <li key={index} className="text-xl hover:text-white/50">
-                            <Link href={link.href} className="w-full">
+                        <li key={index} className="link-menu ">
+                            <Link href={link.href} className="w-full  outline-red-400">
                                 {link.title}
                             </Link>
                         </li>
                     ))
                 }
             </ul>
-            <button className="button-primary">Postear</button>
+            <button className="button-primary py-3">Postear</button>
         </nav>
     )
 }

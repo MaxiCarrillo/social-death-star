@@ -22,11 +22,8 @@ const MessagePageContainer = ({ repliesPage, message, parentId, currentUser }: M
             initialMessage={message}
         >
             <MessageContainer />
-            <section>
-                <h2 className="mt-4 mb-4">Respuestas</h2>
-                <MessagePostForm parentId={parentId} currentUser={currentUser} />
-                <MessagesList />
-            </section>
+            <MessagePostForm parentId={parentId} currentUser={currentUser} />
+            <MessagesList />
         </MessageProvider>
     )
 }
@@ -34,8 +31,9 @@ const MessagePageContainer = ({ repliesPage, message, parentId, currentUser }: M
 const MessageContainer = () => {
     const { message } = useMessages();
     if (!message) return null;
-    return <section>
+    return <section className="border-b border-white/15 p-4">
         <Message message={message} />
+        <h2 className="mt-2">Respuestas</h2>
     </section>
 }
 

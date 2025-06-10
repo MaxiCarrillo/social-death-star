@@ -14,7 +14,7 @@ const MessagePage = async ({ params }: { params: { id: string } }) => {
     const [message, repliesPage] = await Promise.all([messagePromise, repliesPageProomise])
 
     return (
-        <main>
+        <main className="h-full border-r border-l border-white/15">
             <MessagePageContainer
                 message={message}
                 repliesPage={repliesPage}

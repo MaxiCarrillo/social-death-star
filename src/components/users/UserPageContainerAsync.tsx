@@ -23,30 +23,30 @@ const UserPageContainerAsync = async ({ username }: UserPageContainerProps) => {
     ])
 
     return (
-        <main className="flex flex-col bg-gray-900 p-8">
-            <div className="mb-2 aspect-square rounded-full bg-gray-700 w-16 flex items-center justify-center overflow-hidden ">
-                <Image
-                    src={user.photoUrl}
-                    alt="Picture of the user"
-                    width={64}
-                    height={64}
-                    priority
-                />
-            </div>
-            <div>
-                <h2>
-                    {user.name}
-                </h2>
-            </div>
-            <div>
-                @<Link href={`/users/${user.username}`}>{user.username}</Link>
-            </div>
-            <div className="my-4">
-                {user.bio}
-            </div>
-            <div className="flex gap-4 mb-4">
-                <p><strong>{user.followersCount}</strong> Seguidores</p>
-                <p><strong>{user.followingCount}</strong> Siguiendo</p>
+        <main className="border-r border-l h-full border-white/15">
+            <div className="flex flex-col gap-2 py-4 px-4 border-b border-white/15">
+                <div className="aspect-square rounded-full bg-gray-700 w-16 flex items-center justify-center overflow-hidden ">
+                    <Image
+                        src={user.photoUrl}
+                        alt="Picture of the user"
+                        width={64}
+                        height={64}
+                        priority
+                    />
+                </div>
+                <div>
+                    <h2>
+                        {user.name}
+                    </h2>
+                    @<Link href={`/users/${user.username}`}>{user.username}</Link>
+                </div>
+                <div>
+                    {user.bio}
+                </div>
+                <div className="flex gap-4">
+                    <p><strong>{user.followersCount}</strong> Seguidores</p>
+                    <p><strong>{user.followingCount}</strong> Siguiendo</p>
+                </div>
             </div>
             <UserTabs
                 messages={userMessages.content}
